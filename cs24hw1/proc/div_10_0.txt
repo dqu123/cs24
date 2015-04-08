@@ -1,0 +1,4 @@
+The program infinite loops on input div_10_0.rbits
+because the remainder never becomes negative when 
+divisor is subtracted from it repeatedly. Thus,
+it gets stuck in the first while loop.

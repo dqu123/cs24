@@ -1,0 +1,23 @@
+# Instruction bits file. Registers are:
+# R0 = dividend a 
+# R1 = divisor b
+# R2 = c = 0x8000 0000 constant bitmask for sign bit 
+# R3 = sign bit s
+# R4 = negative jump nj (non-zero if number is negative) 
+# R5 = positive jump pj (non-zero if number is non-negative)
+# R6 = quotient q
+# R7 = remainder r
+
+0bb6 # R6<-R6-R6 -- q = 0
+0a37 # R7<-R0-R6 -- r = a
+0bcf # LOOP_TOP (2): R7<-R7-R1 -- r -= b
+23d3 # R3<-R7&R2 -- s = r & c
+22d4 # R4<-R3&R2 -- nj = s & c
+2908 # BNZ R4 8  -- if r is negative break to LOOP_TOP (8)
+1786 # R6<-R6+1  -- q++
+2882 # BNZ R2 2  -- Jump to LOOP_TOP (2) (since R2 is always nonzero)
+03cf # LOOP_TOP (8): R7<-R7+R1 -- r += b   
+23d3 # R3<-R7&R2 -- s = r & c
+22d4 # R4<-R3&R2 -- nj = s & c
+2508 # BNZ R4 8  -- Jump to LOOP_TOP (8) if r is negative
+3c00 # done      -- finished

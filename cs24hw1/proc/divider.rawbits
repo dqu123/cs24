@@ -1,0 +1,22 @@
+# Raw bits file. Registers are:
+# R0 = dividend a 
+# R1 = divisor b
+# R2 = c = 0x8000 0000 constant bitmask for sign bit 
+# R3 = sign bit s
+# R4 = negative jump nj (non-zero if number is negative) 
+# R5 = positive jump pj (non-zero if number is non-negative)
+# R6 = quotient q
+# R7 = remainder r
+
+00 0010 1 110 110 110 # R6<-R6-R6 -- q = 0
+00 0010 1 000 110 111 # R7<-R0-R6 -- r = a
+00 0010 1 111 001 111 # LOOP_TOP (2): R7<-R7-R1 -- r -= b
+00 1000 1 111 010 011 # R3<-R7&R2 -- s = r & c
+00 1000 1 011 010 100 # R4<-R3&R2 -- nj = s & c
+00 1010 0 100 001000  # BNZ R4 8
+00 0101 1 110 000 110 # R6<-R6+1  -- q++
+00 1010 0 010 000010  # BNZ R2 2  --
+00 0000 1 111 001 111 # LOOP_TOP (8): R7<-R7+R1 -- r += b   
+00 1000 1 111 010 011 # R3<-R7&R2 -- s = r & c
+00 1000 1 011 010 100 # R4<-R3&R2 -- nj = s & c
+00 1010 0 100 001000  # BNZ R4 8

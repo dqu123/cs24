@@ -1,0 +1,8 @@
+000f     # Dividend: 15
+0005     # Divisor: 5
+80000000 # Constant bitmask
+ffff
+ffff
+ffff
+ffff     # reserved for quotient
+ffff     # reserved for remainder

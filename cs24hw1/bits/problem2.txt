@@ -1,0 +1,10 @@
+The expression n = n & (n - 1) unsets the rightmost set bit of n.
+It works because subtracting 1 requires a carry if there
+is a string of 0s at the end of number. For example
+111000 - 1 = 110111. Here, all the carried bits get
+flipped, so they are unset when n is bitwise "and"-ed with (n - 1).
+The rightmost set bit is always changed when you subtract 1,
+and no bits to the left of that are affected. This expression
+lets us count bits by iterating this process until the number is
+0, and counting how many iterations were necessary since
+each iteration removes exactly one bit.

@@ -1,0 +1,8 @@
+0013     # Dividend: 19
+0004     # Divisor: 4
+80000000 # Constant bitmask
+ffff
+ffff
+ffff
+ffff     # reserved for quotient
+ffff     # reserved for remainder

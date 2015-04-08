@@ -1,0 +1,15 @@
+The results are different because only a finite number of digits
+can be stored. If a computation involves two numbers of vastly
+different orders of magnitude, then only the most significant
+digits (i.e. those of the highest orders of magnitude).
+Thus, the approach of increasing order of magnitude is most accurate
+because this avoids large jumps in magnitude, and propagates the
+additions in the least significant digits as long as possible.
+(In decreasing order of magnitude, the lowest digits are truncated
+before they can be added, so eventually only 0 is added)
+
+An input data-set with data clustered around two vastly different
+orders of magnitude would still suffer from this problem.
+For an extreme example you could take one data point of magnitude
+10^10 and take 10^20 data points of magnitude 10^0 and the resulting
+sum would be very inaccurate. 
